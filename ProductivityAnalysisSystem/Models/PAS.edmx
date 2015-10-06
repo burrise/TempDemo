@@ -1,0 +1,1011 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PASModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CalculatedMeasurement">
+          <Key>
+            <PropertyRef Name="Measurement_ID" />
+          </Key>
+          <Property Name="Formula" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Measurement_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Category_ID" />
+          </Key>
+          <Property Name="Category_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NM" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Datapoint">
+          <Key>
+            <PropertyRef Name="Datapoint_ID" />
+          </Key>
+          <Property Name="Datapoint_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="HasSubmitted_IN" Type="smallint" Nullable="false" />
+          <Property Name="Applicable_DT" Type="datetime" Nullable="false" />
+          <Property Name="Created_DT" Type="datetime" Nullable="false" />
+          <Property Name="Created_TM" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Value_AMT" Type="decimal" Precision="15" Scale="4" Nullable="false" />
+          <Property Name="Measurement_ID" Type="int" Nullable="false" />
+          <Property Name="Sbmt_By" Type="varchar" MaxLength="999" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Department_ID" />
+          </Key>
+          <Property Name="Department_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NM" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="ADGroup_ID" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Goal">
+          <Key>
+            <PropertyRef Name="Goal_ID" />
+          </Key>
+          <Property Name="Goal_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Applies_After_Tmstp" Type="datetime" Nullable="false" />
+          <Property Name="Meets_Val" Type="decimal" Precision="15" Scale="4" />
+          <Property Name="Meets_Plus_Val" Type="decimal" Precision="15" Scale="4" />
+          <Property Name="Exceeds_Val" Type="decimal" Precision="15" Scale="4" />
+          <Property Name="Wgt" Type="int" Nullable="false" />
+          <Property Name="Typ" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Sbmt_By" Type="varchar" MaxLength="999" Nullable="false" />
+          <Property Name="Measurement_ID" Type="int" Nullable="false" />
+          <Property Name="GoalCategory_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GoalAudit">
+          <Key>
+            <PropertyRef Name="Goal_ID" />
+            <PropertyRef Name="Changed_DT" />
+          </Key>
+          <Property Name="Goal_ID" Type="int" Nullable="false" />
+          <Property Name="Changed_DT" Type="datetime" Nullable="false" />
+          <Property Name="Reason_TXT" Type="varchar" MaxLength="256" />
+          <Property Name="Description_TXT" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GoalCategory">
+          <Key>
+            <PropertyRef Name="GoalCategory_ID" />
+          </Key>
+          <Property Name="GoalCategory_ID" Type="int" Nullable="false" />
+          <Property Name="NM" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Measurement">
+          <Key>
+            <PropertyRef Name="Measurement_ID" />
+          </Key>
+          <Property Name="Measurement_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Activated_IN" Type="smallint" Nullable="false" />
+          <Property Name="Description_TXT" Type="varchar" MaxLength="256" />
+          <Property Name="Decimal_Points_SZ" Type="decimal" Precision="15" Scale="3" Nullable="false" />
+          <Property Name="Has_Goal_IN" Type="smallint" Nullable="false" />
+          <Property Name="Type_ID" Type="int" Nullable="false" />
+          <Property Name="Category_ID" Type="int" Nullable="false" />
+          <Property Name="SLA_IN" Type="smallint" Nullable="false" />
+          <Property Name="Is_Calculated" Type="smallint" Nullable="false" />
+          <Property Name="NM" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Department_ID" Type="int" Nullable="false" />
+          <Property Name="Is_UnitCost_IN" Type="smallint" Nullable="false" />
+          <Property Name="Created_DT" Type="datetime" Nullable="false" />
+          <Property Name="YTD_Calc" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MeasurementAudit">
+          <Key>
+            <PropertyRef Name="MeasurementAudit_ID" />
+          </Key>
+          <Property Name="MeasurementAudit_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Changed_DT" Type="datetime" Nullable="false" />
+          <Property Name="Reason_TXT" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description_TXT" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="ChangedBy_NM" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Measurement_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="MonthlyEntriesAudit">
+          <Key>
+            <PropertyRef Name="Audit_ID" />
+          </Key>
+          <Property Name="Audit_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ChangedBy_NM" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="OldValue_AMT" Type="decimal" Precision="15" Scale="4" Nullable="false" />
+          <Property Name="NewValue_AMT" Type="decimal" Precision="15" Scale="4" Nullable="false" />
+          <Property Name="Edited_DT" Type="datetime" Nullable="false" />
+          <Property Name="Reason_TXT" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Datapoint_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reason">
+          <Key>
+            <PropertyRef Name="Reason_ID" />
+          </Key>
+          <Property Name="Reason_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Comment_TXT" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Datapoint_ID" Type="int" Nullable="false" />
+          <Property Name="Is_Reason_IN" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="Report_ID" />
+          </Key>
+          <Property Name="Report_ID" Type="int" Nullable="false" />
+          <Property Name="NM" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description_TXT" Type="varchar" MaxLength="255" />
+          <Property Name="Report_Type" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportColumn">
+          <Key>
+            <PropertyRef Name="Report_ID" />
+            <PropertyRef Name="Order" />
+          </Key>
+          <Property Name="Report_ID" Type="int" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportRow">
+          <Key>
+            <PropertyRef Name="Report_ID" />
+            <PropertyRef Name="Order" />
+          </Key>
+          <Property Name="Report_ID" Type="int" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Row_Item" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="Type_ID" />
+          </Key>
+          <Property Name="Type_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Type_Char" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSession">
+          <Key>
+            <PropertyRef Name="Sso_Id" />
+          </Key>
+          <Property Name="Sso_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Measurement_Ids" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Calculate__Measu__2022C2A6">
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="1" />
+          <End Role="CalculatedMeasurement" Type="Self.CalculatedMeasurement" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="Measurement_ID" />
+            </Principal>
+            <Dependent Role="CalculatedMeasurement">
+              <PropertyRef Name="Measurement_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Datapoint__Measu__44FF419A">
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="1" />
+          <End Role="Datapoint" Type="Self.Datapoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="Measurement_ID" />
+            </Principal>
+            <Dependent Role="Datapoint">
+              <PropertyRef Name="Measurement_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GoalAudit__Goal___0C70CFB4">
+          <End Role="Goal" Type="Self.Goal" Multiplicity="1" />
+          <End Role="GoalAudit" Type="Self.GoalAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goal">
+              <PropertyRef Name="Goal_ID" />
+            </Principal>
+            <Dependent Role="GoalAudit">
+              <PropertyRef Name="Goal_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measureme__Categ__3F466844">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Category_ID" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measureme__Depar__5B438874">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_ID" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measureme__Measu__664B26CC">
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="0..1" />
+          <End Role="MeasurementAudit" Type="Self.MeasurementAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="Measurement_ID" />
+            </Principal>
+            <Dependent Role="MeasurementAudit">
+              <PropertyRef Name="Measurement_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measureme__Type___3D5E1FD2">
+          <End Role="Type" Type="Self.Type" Multiplicity="1" />
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="Type_ID" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MonthlyEn__Datap__4DB4832C">
+          <End Role="Datapoint" Type="Self.Datapoint" Multiplicity="1" />
+          <End Role="MonthlyEntriesAudit" Type="Self.MonthlyEntriesAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datapoint">
+              <PropertyRef Name="Datapoint_ID" />
+            </Principal>
+            <Dependent Role="MonthlyEntriesAudit">
+              <PropertyRef Name="Datapoint_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reason__Datapoin__47DBAE45">
+          <End Role="Datapoint" Type="Self.Datapoint" Multiplicity="1" />
+          <End Role="Reason" Type="Self.Reason" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datapoint">
+              <PropertyRef Name="Datapoint_ID" />
+            </Principal>
+            <Dependent Role="Reason">
+              <PropertyRef Name="Datapoint_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReportCol__Repor__05F8DC4F">
+          <End Role="Report" Type="Self.Report" Multiplicity="1" />
+          <End Role="ReportColumn" Type="Self.ReportColumn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report">
+              <PropertyRef Name="Report_ID" />
+            </Principal>
+            <Dependent Role="ReportColumn">
+              <PropertyRef Name="Report_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReportRow__Repor__73DA2C14">
+          <End Role="Report" Type="Self.Report" Multiplicity="1" />
+          <End Role="ReportRow" Type="Self.ReportRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report">
+              <PropertyRef Name="Report_ID" />
+            </Principal>
+            <Dependent Role="ReportRow">
+              <PropertyRef Name="Report_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoalCategory_Id">
+          <End Role="GoalCategory" Type="Self.GoalCategory" Multiplicity="1" />
+          <End Role="Goal" Type="Self.Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoalCategory">
+              <PropertyRef Name="GoalCategory_ID" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="GoalCategory_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Measurement_Measurement_Id">
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="1" />
+          <End Role="Goal" Type="Self.Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="Measurement_ID" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="Measurement_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PASModelStoreContainer">
+          <EntitySet Name="CalculatedMeasurement" EntityType="Self.CalculatedMeasurement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Datapoint" EntityType="Self.Datapoint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Goal" EntityType="Self.Goal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoalAudit" EntityType="Self.GoalAudit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoalCategory" EntityType="Self.GoalCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Measurement" EntityType="Self.Measurement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MeasurementAudit" EntityType="Self.MeasurementAudit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthlyEntriesAudit" EntityType="Self.MonthlyEntriesAudit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reason" EntityType="Self.Reason" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportColumn" EntityType="Self.ReportColumn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportRow" EntityType="Self.ReportRow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSession" EntityType="Self.UserSession" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Calculate__Measu__2022C2A6" Association="Self.FK__Calculate__Measu__2022C2A6">
+            <End Role="Measurement" EntitySet="Measurement" />
+            <End Role="CalculatedMeasurement" EntitySet="CalculatedMeasurement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Datapoint__Measu__44FF419A" Association="Self.FK__Datapoint__Measu__44FF419A">
+            <End Role="Measurement" EntitySet="Measurement" />
+            <End Role="Datapoint" EntitySet="Datapoint" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GoalAudit__Goal___0C70CFB4" Association="Self.FK__GoalAudit__Goal___0C70CFB4">
+            <End Role="Goal" EntitySet="Goal" />
+            <End Role="GoalAudit" EntitySet="GoalAudit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measureme__Categ__3F466844" Association="Self.FK__Measureme__Categ__3F466844">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Measurement" EntitySet="Measurement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measureme__Depar__5B438874" Association="Self.FK__Measureme__Depar__5B438874">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Measurement" EntitySet="Measurement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measureme__Measu__664B26CC" Association="Self.FK__Measureme__Measu__664B26CC">
+            <End Role="Measurement" EntitySet="Measurement" />
+            <End Role="MeasurementAudit" EntitySet="MeasurementAudit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measureme__Type___3D5E1FD2" Association="Self.FK__Measureme__Type___3D5E1FD2">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="Measurement" EntitySet="Measurement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MonthlyEn__Datap__4DB4832C" Association="Self.FK__MonthlyEn__Datap__4DB4832C">
+            <End Role="Datapoint" EntitySet="Datapoint" />
+            <End Role="MonthlyEntriesAudit" EntitySet="MonthlyEntriesAudit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reason__Datapoin__47DBAE45" Association="Self.FK__Reason__Datapoin__47DBAE45">
+            <End Role="Datapoint" EntitySet="Datapoint" />
+            <End Role="Reason" EntitySet="Reason" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReportCol__Repor__05F8DC4F" Association="Self.FK__ReportCol__Repor__05F8DC4F">
+            <End Role="Report" EntitySet="Report" />
+            <End Role="ReportColumn" EntitySet="ReportColumn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReportRow__Repor__73DA2C14" Association="Self.FK__ReportRow__Repor__73DA2C14">
+            <End Role="Report" EntitySet="Report" />
+            <End Role="ReportRow" EntitySet="ReportRow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoalCategory_Id" Association="Self.FK_GoalCategory_Id">
+            <End Role="GoalCategory" EntitySet="GoalCategory" />
+            <End Role="Goal" EntitySet="Goal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Measurement_Measurement_Id" Association="Self.FK_Measurement_Measurement_Id">
+            <End Role="Measurement" EntitySet="Measurement" />
+            <End Role="Goal" EntitySet="Goal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PASModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CalculatedMeasurement">
+          <Key>
+            <PropertyRef Name="Measurement_ID" />
+          </Key>
+          <Property Name="Formula" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Measurement_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Measurement" Relationship="PASModel.FK__Calculate__Measu__2022C2A6" FromRole="CalculatedMeasurement" ToRole="Measurement" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Category_ID" />
+          </Key>
+          <Property Name="Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NM" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Measurements" Relationship="PASModel.FK__Measureme__Categ__3F466844" FromRole="Category" ToRole="Measurement" />
+        </EntityType>
+        <EntityType Name="Datapoint">
+          <Key>
+            <PropertyRef Name="Datapoint_ID" />
+          </Key>
+          <Property Name="Datapoint_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HasSubmitted_IN" Type="Int16" Nullable="false" />
+          <Property Name="Applicable_DT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_DT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_TM" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Value_AMT" Type="Decimal" Nullable="false" Precision="15" Scale="4" />
+          <Property Name="Measurement_ID" Type="Int32" Nullable="false" />
+          <Property Name="Sbmt_By" Type="String" Nullable="false" MaxLength="999" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Measurement" Relationship="PASModel.FK__Datapoint__Measu__44FF419A" FromRole="Datapoint" ToRole="Measurement" />
+          <NavigationProperty Name="MonthlyEntriesAudits" Relationship="PASModel.FK__MonthlyEn__Datap__4DB4832C" FromRole="Datapoint" ToRole="MonthlyEntriesAudit" />
+          <NavigationProperty Name="Reasons" Relationship="PASModel.FK__Reason__Datapoin__47DBAE45" FromRole="Datapoint" ToRole="Reason" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Department_ID" />
+          </Key>
+          <Property Name="Department_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NM" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="ADGroup_ID" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Measurements" Relationship="PASModel.FK__Measureme__Depar__5B438874" FromRole="Department" ToRole="Measurement" />
+        </EntityType>
+        <EntityType Name="Goal">
+          <Key>
+            <PropertyRef Name="Goal_ID" />
+          </Key>
+          <Property Name="Goal_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Applies_After_Tmstp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Meets_Val" Type="Decimal" Precision="15" Scale="4" />
+          <Property Name="Meets_Plus_Val" Type="Decimal" Precision="15" Scale="4" />
+          <Property Name="Exceeds_Val" Type="Decimal" Precision="15" Scale="4" />
+          <Property Name="Wgt" Type="Int32" Nullable="false" />
+          <Property Name="Typ" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Sbmt_By" Type="String" Nullable="false" MaxLength="999" FixedLength="false" Unicode="false" />
+          <Property Name="Measurement_ID" Type="Int32" Nullable="false" />
+          <Property Name="GoalCategory_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GoalAudits" Relationship="PASModel.FK__GoalAudit__Goal___0C70CFB4" FromRole="Goal" ToRole="GoalAudit" />
+          <NavigationProperty Name="GoalCategory" Relationship="PASModel.FK_GoalCategory_Id" FromRole="Goal" ToRole="GoalCategory" />
+          <NavigationProperty Name="Measurement" Relationship="PASModel.FK_Measurement_Measurement_Id" FromRole="Goal" ToRole="Measurement" />
+        </EntityType>
+        <EntityType Name="GoalAudit">
+          <Key>
+            <PropertyRef Name="Goal_ID" />
+            <PropertyRef Name="Changed_DT" />
+          </Key>
+          <Property Name="Goal_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Changed_DT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Reason_TXT" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Description_TXT" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Goal" Relationship="PASModel.FK__GoalAudit__Goal___0C70CFB4" FromRole="GoalAudit" ToRole="Goal" />
+        </EntityType>
+        <EntityType Name="GoalCategory">
+          <Key>
+            <PropertyRef Name="GoalCategory_ID" />
+          </Key>
+          <Property Name="GoalCategory_ID" Type="Int32" Nullable="false" />
+          <Property Name="NM" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Goals" Relationship="PASModel.FK_GoalCategory_Id" FromRole="GoalCategory" ToRole="Goal" />
+        </EntityType>
+        <EntityType Name="Measurement">
+          <Key>
+            <PropertyRef Name="Measurement_ID" />
+          </Key>
+          <Property Name="Measurement_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Activated_IN" Type="Int16" Nullable="false" />
+          <Property Name="Description_TXT" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Decimal_Points_SZ" Type="Decimal" Nullable="false" Precision="15" Scale="3" />
+          <Property Name="Has_Goal_IN" Type="Int16" Nullable="false" />
+          <Property Name="Type_ID" Type="Int32" Nullable="false" />
+          <Property Name="Category_ID" Type="Int32" Nullable="false" />
+          <Property Name="SLA_IN" Type="Int16" Nullable="false" />
+          <Property Name="Is_Calculated" Type="Int16" Nullable="false" />
+          <Property Name="NM" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Department_ID" Type="Int32" Nullable="false" />
+          <Property Name="Is_UnitCost_IN" Type="Int16" Nullable="false" />
+          <Property Name="Created_DT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="YTD_Calc" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CalculatedMeasurement" Relationship="PASModel.FK__Calculate__Measu__2022C2A6" FromRole="Measurement" ToRole="CalculatedMeasurement" />
+          <NavigationProperty Name="Category" Relationship="PASModel.FK__Measureme__Categ__3F466844" FromRole="Measurement" ToRole="Category" />
+          <NavigationProperty Name="Datapoints" Relationship="PASModel.FK__Datapoint__Measu__44FF419A" FromRole="Measurement" ToRole="Datapoint" />
+          <NavigationProperty Name="Department" Relationship="PASModel.FK__Measureme__Depar__5B438874" FromRole="Measurement" ToRole="Department" />
+          <NavigationProperty Name="Goals" Relationship="PASModel.FK_Measurement_Measurement_Id" FromRole="Measurement" ToRole="Goal" />
+          <NavigationProperty Name="MeasurementAudits" Relationship="PASModel.FK__Measureme__Measu__664B26CC" FromRole="Measurement" ToRole="MeasurementAudit" />
+          <NavigationProperty Name="Type" Relationship="PASModel.FK__Measureme__Type___3D5E1FD2" FromRole="Measurement" ToRole="Type" />
+        </EntityType>
+        <EntityType Name="MeasurementAudit">
+          <Key>
+            <PropertyRef Name="MeasurementAudit_ID" />
+          </Key>
+          <Property Name="MeasurementAudit_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Changed_DT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Reason_TXT" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Description_TXT" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="ChangedBy_NM" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Measurement_ID" Type="Int32" />
+          <NavigationProperty Name="Measurement" Relationship="PASModel.FK__Measureme__Measu__664B26CC" FromRole="MeasurementAudit" ToRole="Measurement" />
+        </EntityType>
+        <EntityType Name="MonthlyEntriesAudit">
+          <Key>
+            <PropertyRef Name="Audit_ID" />
+          </Key>
+          <Property Name="Audit_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChangedBy_NM" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OldValue_AMT" Type="Decimal" Nullable="false" Precision="15" Scale="4" />
+          <Property Name="NewValue_AMT" Type="Decimal" Nullable="false" Precision="15" Scale="4" />
+          <Property Name="Edited_DT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Reason_TXT" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Datapoint_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Datapoint" Relationship="PASModel.FK__MonthlyEn__Datap__4DB4832C" FromRole="MonthlyEntriesAudit" ToRole="Datapoint" />
+        </EntityType>
+        <EntityType Name="Reason">
+          <Key>
+            <PropertyRef Name="Reason_ID" />
+          </Key>
+          <Property Name="Reason_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comment_TXT" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Datapoint_ID" Type="Int32" Nullable="false" />
+          <Property Name="Is_Reason_IN" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Datapoint" Relationship="PASModel.FK__Reason__Datapoin__47DBAE45" FromRole="Reason" ToRole="Datapoint" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="Report_ID" />
+          </Key>
+          <Property Name="Report_ID" Type="Int32" Nullable="false" />
+          <Property Name="NM" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description_TXT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Report_Type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ReportColumns" Relationship="PASModel.FK__ReportCol__Repor__05F8DC4F" FromRole="Report" ToRole="ReportColumn" />
+          <NavigationProperty Name="ReportRows" Relationship="PASModel.FK__ReportRow__Repor__73DA2C14" FromRole="Report" ToRole="ReportRow" />
+        </EntityType>
+        <EntityType Name="ReportColumn">
+          <Key>
+            <PropertyRef Name="Report_ID" />
+            <PropertyRef Name="Order" />
+          </Key>
+          <Property Name="Report_ID" Type="Int32" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Report" Relationship="PASModel.FK__ReportCol__Repor__05F8DC4F" FromRole="ReportColumn" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="ReportRow">
+          <Key>
+            <PropertyRef Name="Report_ID" />
+            <PropertyRef Name="Order" />
+          </Key>
+          <Property Name="Report_ID" Type="Int32" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Row_Item" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Report" Relationship="PASModel.FK__ReportRow__Repor__73DA2C14" FromRole="ReportRow" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="Type_ID" />
+          </Key>
+          <Property Name="Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type_Char" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Measurements" Relationship="PASModel.FK__Measureme__Type___3D5E1FD2" FromRole="Type" ToRole="Measurement" />
+        </EntityType>
+        <EntityType Name="UserSession">
+          <Key>
+            <PropertyRef Name="Sso_Id" />
+          </Key>
+          <Property Name="Sso_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Measurement_Ids" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__Calculate__Measu__2022C2A6">
+          <End Type="PASModel.Measurement" Role="Measurement" Multiplicity="1" />
+          <End Type="PASModel.CalculatedMeasurement" Role="CalculatedMeasurement" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="Measurement_ID" />
+            </Principal>
+            <Dependent Role="CalculatedMeasurement">
+              <PropertyRef Name="Measurement_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measureme__Categ__3F466844">
+          <End Type="PASModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="PASModel.Measurement" Role="Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Category_ID" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Datapoint__Measu__44FF419A">
+          <End Type="PASModel.Measurement" Role="Measurement" Multiplicity="1" />
+          <End Type="PASModel.Datapoint" Role="Datapoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="Measurement_ID" />
+            </Principal>
+            <Dependent Role="Datapoint">
+              <PropertyRef Name="Measurement_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MonthlyEn__Datap__4DB4832C">
+          <End Type="PASModel.Datapoint" Role="Datapoint" Multiplicity="1" />
+          <End Type="PASModel.MonthlyEntriesAudit" Role="MonthlyEntriesAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datapoint">
+              <PropertyRef Name="Datapoint_ID" />
+            </Principal>
+            <Dependent Role="MonthlyEntriesAudit">
+              <PropertyRef Name="Datapoint_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reason__Datapoin__47DBAE45">
+          <End Type="PASModel.Datapoint" Role="Datapoint" Multiplicity="1" />
+          <End Type="PASModel.Reason" Role="Reason" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datapoint">
+              <PropertyRef Name="Datapoint_ID" />
+            </Principal>
+            <Dependent Role="Reason">
+              <PropertyRef Name="Datapoint_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measureme__Depar__5B438874">
+          <End Type="PASModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="PASModel.Measurement" Role="Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_ID" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PASEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CalculatedMeasurements" EntityType="PASModel.CalculatedMeasurement" />
+          <EntitySet Name="Categories" EntityType="PASModel.Category" />
+          <EntitySet Name="Datapoints" EntityType="PASModel.Datapoint" />
+          <EntitySet Name="Departments" EntityType="PASModel.Department" />
+          <EntitySet Name="Goals" EntityType="PASModel.Goal" />
+          <EntitySet Name="GoalAudits" EntityType="PASModel.GoalAudit" />
+          <EntitySet Name="GoalCategories" EntityType="PASModel.GoalCategory" />
+          <EntitySet Name="Measurements" EntityType="PASModel.Measurement" />
+          <EntitySet Name="MeasurementAudits" EntityType="PASModel.MeasurementAudit" />
+          <EntitySet Name="MonthlyEntriesAudits" EntityType="PASModel.MonthlyEntriesAudit" />
+          <EntitySet Name="Reasons" EntityType="PASModel.Reason" />
+          <EntitySet Name="Reports" EntityType="PASModel.Report" />
+          <EntitySet Name="ReportColumns" EntityType="PASModel.ReportColumn" />
+          <EntitySet Name="ReportRows" EntityType="PASModel.ReportRow" />
+          <EntitySet Name="Types" EntityType="PASModel.Type" />
+          <EntitySet Name="UserSessions" EntityType="PASModel.UserSession" />
+          <AssociationSet Name="FK__Calculate__Measu__2022C2A6" Association="PASModel.FK__Calculate__Measu__2022C2A6">
+            <End Role="Measurement" EntitySet="Measurements" />
+            <End Role="CalculatedMeasurement" EntitySet="CalculatedMeasurements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measureme__Categ__3F466844" Association="PASModel.FK__Measureme__Categ__3F466844">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Measurement" EntitySet="Measurements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Datapoint__Measu__44FF419A" Association="PASModel.FK__Datapoint__Measu__44FF419A">
+            <End Role="Measurement" EntitySet="Measurements" />
+            <End Role="Datapoint" EntitySet="Datapoints" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MonthlyEn__Datap__4DB4832C" Association="PASModel.FK__MonthlyEn__Datap__4DB4832C">
+            <End Role="Datapoint" EntitySet="Datapoints" />
+            <End Role="MonthlyEntriesAudit" EntitySet="MonthlyEntriesAudits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reason__Datapoin__47DBAE45" Association="PASModel.FK__Reason__Datapoin__47DBAE45">
+            <End Role="Datapoint" EntitySet="Datapoints" />
+            <End Role="Reason" EntitySet="Reasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measureme__Depar__5B438874" Association="PASModel.FK__Measureme__Depar__5B438874">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Measurement" EntitySet="Measurements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GoalAudit__Goal___0C70CFB4" Association="PASModel.FK__GoalAudit__Goal___0C70CFB4">
+            <End Role="Goal" EntitySet="Goals" />
+            <End Role="GoalAudit" EntitySet="GoalAudits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoalCategory_Id" Association="PASModel.FK_GoalCategory_Id">
+            <End Role="GoalCategory" EntitySet="GoalCategories" />
+            <End Role="Goal" EntitySet="Goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Measurement_Measurement_Id" Association="PASModel.FK_Measurement_Measurement_Id">
+            <End Role="Measurement" EntitySet="Measurements" />
+            <End Role="Goal" EntitySet="Goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measureme__Measu__664B26CC" Association="PASModel.FK__Measureme__Measu__664B26CC">
+            <End Role="Measurement" EntitySet="Measurements" />
+            <End Role="MeasurementAudit" EntitySet="MeasurementAudits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Measureme__Type___3D5E1FD2" Association="PASModel.FK__Measureme__Type___3D5E1FD2">
+            <End Role="Type" EntitySet="Types" />
+            <End Role="Measurement" EntitySet="Measurements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReportCol__Repor__05F8DC4F" Association="PASModel.FK__ReportCol__Repor__05F8DC4F">
+            <End Role="Report" EntitySet="Reports" />
+            <End Role="ReportColumn" EntitySet="ReportColumns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReportRow__Repor__73DA2C14" Association="PASModel.FK__ReportRow__Repor__73DA2C14">
+            <End Role="Report" EntitySet="Reports" />
+            <End Role="ReportRow" EntitySet="ReportRows" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__GoalAudit__Goal___0C70CFB4">
+          <End Type="PASModel.Goal" Role="Goal" Multiplicity="1" />
+          <End Type="PASModel.GoalAudit" Role="GoalAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goal">
+              <PropertyRef Name="Goal_ID" />
+            </Principal>
+            <Dependent Role="GoalAudit">
+              <PropertyRef Name="Goal_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoalCategory_Id">
+          <End Type="PASModel.GoalCategory" Role="GoalCategory" Multiplicity="1" />
+          <End Type="PASModel.Goal" Role="Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoalCategory">
+              <PropertyRef Name="GoalCategory_ID" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="GoalCategory_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Measurement_Measurement_Id">
+          <End Type="PASModel.Measurement" Role="Measurement" Multiplicity="1" />
+          <End Type="PASModel.Goal" Role="Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="Measurement_ID" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="Measurement_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measureme__Measu__664B26CC">
+          <End Type="PASModel.Measurement" Role="Measurement" Multiplicity="0..1" />
+          <End Type="PASModel.MeasurementAudit" Role="MeasurementAudit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="Measurement_ID" />
+            </Principal>
+            <Dependent Role="MeasurementAudit">
+              <PropertyRef Name="Measurement_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Measureme__Type___3D5E1FD2">
+          <End Type="PASModel.Type" Role="Type" Multiplicity="1" />
+          <End Type="PASModel.Measurement" Role="Measurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="Type_ID" />
+            </Principal>
+            <Dependent Role="Measurement">
+              <PropertyRef Name="Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReportCol__Repor__05F8DC4F">
+          <End Type="PASModel.Report" Role="Report" Multiplicity="1" />
+          <End Type="PASModel.ReportColumn" Role="ReportColumn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report">
+              <PropertyRef Name="Report_ID" />
+            </Principal>
+            <Dependent Role="ReportColumn">
+              <PropertyRef Name="Report_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReportRow__Repor__73DA2C14">
+          <End Type="PASModel.Report" Role="Report" Multiplicity="1" />
+          <End Type="PASModel.ReportRow" Role="ReportRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report">
+              <PropertyRef Name="Report_ID" />
+            </Principal>
+            <Dependent Role="ReportRow">
+              <PropertyRef Name="Report_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PASModelStoreContainer" CdmEntityContainer="PASEntities">
+          <EntitySetMapping Name="CalculatedMeasurements">
+            <EntityTypeMapping TypeName="PASModel.CalculatedMeasurement">
+              <MappingFragment StoreEntitySet="CalculatedMeasurement">
+                <ScalarProperty Name="Measurement_ID" ColumnName="Measurement_ID" />
+                <ScalarProperty Name="Formula" ColumnName="Formula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="PASModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="NM" ColumnName="NM" />
+                <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Datapoints">
+            <EntityTypeMapping TypeName="PASModel.Datapoint">
+              <MappingFragment StoreEntitySet="Datapoint">
+                <ScalarProperty Name="Sbmt_By" ColumnName="Sbmt_By" />
+                <ScalarProperty Name="Measurement_ID" ColumnName="Measurement_ID" />
+                <ScalarProperty Name="Value_AMT" ColumnName="Value_AMT" />
+                <ScalarProperty Name="Created_TM" ColumnName="Created_TM" />
+                <ScalarProperty Name="Created_DT" ColumnName="Created_DT" />
+                <ScalarProperty Name="Applicable_DT" ColumnName="Applicable_DT" />
+                <ScalarProperty Name="HasSubmitted_IN" ColumnName="HasSubmitted_IN" />
+                <ScalarProperty Name="Datapoint_ID" ColumnName="Datapoint_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="PASModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="ADGroup_ID" ColumnName="ADGroup_ID" />
+                <ScalarProperty Name="NM" ColumnName="NM" />
+                <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goals">
+            <EntityTypeMapping TypeName="PASModel.Goal">
+              <MappingFragment StoreEntitySet="Goal">
+                <ScalarProperty Name="GoalCategory_ID" ColumnName="GoalCategory_ID" />
+                <ScalarProperty Name="Measurement_ID" ColumnName="Measurement_ID" />
+                <ScalarProperty Name="Sbmt_By" ColumnName="Sbmt_By" />
+                <ScalarProperty Name="Typ" ColumnName="Typ" />
+                <ScalarProperty Name="Wgt" ColumnName="Wgt" />
+                <ScalarProperty Name="Exceeds_Val" ColumnName="Exceeds_Val" />
+                <ScalarProperty Name="Meets_Plus_Val" ColumnName="Meets_Plus_Val" />
+                <ScalarProperty Name="Meets_Val" ColumnName="Meets_Val" />
+                <ScalarProperty Name="Applies_After_Tmstp" ColumnName="Applies_After_Tmstp" />
+                <ScalarProperty Name="Goal_ID" ColumnName="Goal_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoalAudits">
+            <EntityTypeMapping TypeName="PASModel.GoalAudit">
+              <MappingFragment StoreEntitySet="GoalAudit">
+                <ScalarProperty Name="Description_TXT" ColumnName="Description_TXT" />
+                <ScalarProperty Name="Reason_TXT" ColumnName="Reason_TXT" />
+                <ScalarProperty Name="Changed_DT" ColumnName="Changed_DT" />
+                <ScalarProperty Name="Goal_ID" ColumnName="Goal_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoalCategories">
+            <EntityTypeMapping TypeName="PASModel.GoalCategory">
+              <MappingFragment StoreEntitySet="GoalCategory">
+                <ScalarProperty Name="NM" ColumnName="NM" />
+                <ScalarProperty Name="GoalCategory_ID" ColumnName="GoalCategory_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Measurements">
+            <EntityTypeMapping TypeName="PASModel.Measurement">
+              <MappingFragment StoreEntitySet="Measurement">
+                <ScalarProperty Name="YTD_Calc" ColumnName="YTD_Calc" />
+                <ScalarProperty Name="Created_DT" ColumnName="Created_DT" />
+                <ScalarProperty Name="Is_UnitCost_IN" ColumnName="Is_UnitCost_IN" />
+                <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
+                <ScalarProperty Name="NM" ColumnName="NM" />
+                <ScalarProperty Name="Is_Calculated" ColumnName="Is_Calculated" />
+                <ScalarProperty Name="SLA_IN" ColumnName="SLA_IN" />
+                <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+                <ScalarProperty Name="Type_ID" ColumnName="Type_ID" />
+                <ScalarProperty Name="Has_Goal_IN" ColumnName="Has_Goal_IN" />
+                <ScalarProperty Name="Decimal_Points_SZ" ColumnName="Decimal_Points_SZ" />
+                <ScalarProperty Name="Description_TXT" ColumnName="Description_TXT" />
+                <ScalarProperty Name="Activated_IN" ColumnName="Activated_IN" />
+                <ScalarProperty Name="Measurement_ID" ColumnName="Measurement_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeasurementAudits">
+            <EntityTypeMapping TypeName="PASModel.MeasurementAudit">
+              <MappingFragment StoreEntitySet="MeasurementAudit">
+                <ScalarProperty Name="Measurement_ID" ColumnName="Measurement_ID" />
+                <ScalarProperty Name="ChangedBy_NM" ColumnName="ChangedBy_NM" />
+                <ScalarProperty Name="Description_TXT" ColumnName="Description_TXT" />
+                <ScalarProperty Name="Reason_TXT" ColumnName="Reason_TXT" />
+                <ScalarProperty Name="Changed_DT" ColumnName="Changed_DT" />
+                <ScalarProperty Name="MeasurementAudit_ID" ColumnName="MeasurementAudit_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlyEntriesAudits">
+            <EntityTypeMapping TypeName="PASModel.MonthlyEntriesAudit">
+              <MappingFragment StoreEntitySet="MonthlyEntriesAudit">
+                <ScalarProperty Name="Datapoint_ID" ColumnName="Datapoint_ID" />
+                <ScalarProperty Name="Reason_TXT" ColumnName="Reason_TXT" />
+                <ScalarProperty Name="Edited_DT" ColumnName="Edited_DT" />
+                <ScalarProperty Name="NewValue_AMT" ColumnName="NewValue_AMT" />
+                <ScalarProperty Name="OldValue_AMT" ColumnName="OldValue_AMT" />
+                <ScalarProperty Name="ChangedBy_NM" ColumnName="ChangedBy_NM" />
+                <ScalarProperty Name="Audit_ID" ColumnName="Audit_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reasons">
+            <EntityTypeMapping TypeName="PASModel.Reason">
+              <MappingFragment StoreEntitySet="Reason">
+                <ScalarProperty Name="Is_Reason_IN" ColumnName="Is_Reason_IN" />
+                <ScalarProperty Name="Datapoint_ID" ColumnName="Datapoint_ID" />
+                <ScalarProperty Name="Comment_TXT" ColumnName="Comment_TXT" />
+                <ScalarProperty Name="Reason_ID" ColumnName="Reason_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="PASModel.Report">
+              <MappingFragment StoreEntitySet="Report">
+                <ScalarProperty Name="Report_Type" ColumnName="Report_Type" />
+                <ScalarProperty Name="Description_TXT" ColumnName="Description_TXT" />
+                <ScalarProperty Name="NM" ColumnName="NM" />
+                <ScalarProperty Name="Report_ID" ColumnName="Report_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportColumns">
+            <EntityTypeMapping TypeName="PASModel.ReportColumn">
+              <MappingFragment StoreEntitySet="ReportColumn">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Report_ID" ColumnName="Report_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportRows">
+            <EntityTypeMapping TypeName="PASModel.ReportRow">
+              <MappingFragment StoreEntitySet="ReportRow">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Row_Item" ColumnName="Row_Item" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Report_ID" ColumnName="Report_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="PASModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="Type_Char" ColumnName="Type_Char" />
+                <ScalarProperty Name="Type_ID" ColumnName="Type_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSessions">
+            <EntityTypeMapping TypeName="PASModel.UserSession">
+              <MappingFragment StoreEntitySet="UserSession">
+                <ScalarProperty Name="Measurement_Ids" ColumnName="Measurement_Ids" />
+                <ScalarProperty Name="Sso_Id" ColumnName="Sso_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
