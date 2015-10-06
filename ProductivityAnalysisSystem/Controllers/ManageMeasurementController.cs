@@ -85,7 +85,7 @@ namespace ProductivityAnalysisSystem.Controllers
                 Goal goal = new Goal();
                 CalculatedMeasurement calculatedMeasurement = new CalculatedMeasurement();
 
-                string user = User.Identity.Name.Substring(0,20);
+                string user = User.Identity.Name.Substring(0,3);
 
                 //Basic Measurement Information
                 string measurementName = Request["txtMeasurementName"].Trim();
@@ -187,7 +187,7 @@ namespace ProductivityAnalysisSystem.Controllers
                     //User identity checking
                     if (!ValidateUserName(user))
                         return RedirectToAction("Index");
-                    goal.Sbmt_By = User.Identity.Name.Substring(0, 20);
+                    goal.Sbmt_By = User.Identity.Name.Substring(0, 3);
                     
 
                     //inequality Validation
@@ -468,7 +468,7 @@ namespace ProductivityAnalysisSystem.Controllers
             //User identity checking
             if (!ValidateUserName(user))
                 return RedirectToAction("Index");
-            goal.Sbmt_By = User.Identity.Name.Substring(0,20);
+            goal.Sbmt_By = User.Identity.Name.Substring(0,3);
 
             Measurement measure = _repository.GetMeasurementFromId(measureId);
 

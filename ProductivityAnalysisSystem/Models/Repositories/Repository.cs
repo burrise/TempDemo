@@ -607,7 +607,7 @@ namespace ProductivityAnalysisSystem.Models.Repositories
                     Value_AMT = value,
                     Created_DT = DateTime.Now.Date,
                     Created_TM = DateTime.Now.TimeOfDay,
-                    Sbmt_By = ActiveDirectoryResource.GetUsername().Substring(0,20)
+                    Sbmt_By = ActiveDirectoryResource.GetUsername().Substring(0,3)
                 };
 
                 UpdateAddDataPoint(datapoint);
@@ -640,14 +640,14 @@ namespace ProductivityAnalysisSystem.Models.Repositories
         {
             var us = new UserSession
             {
-                Sso_Id = ActiveDirectoryResource.GetUsername(),
+                Sso_Id = ActiveDirectoryResource.GetUsername().Substring(0,3),
                 Measurement_Ids = string.Join(",", idList.ToArray())
             };
 
             db.UserSessions.AddOrUpdate(us);
             try
             {
-                db.SaveChanges();
+                SaveChanges();
             }
             catch (System.Data.Entity.Infrastructure.DbUpdateException dbEx)
             {
@@ -689,7 +689,7 @@ namespace ProductivityAnalysisSystem.Models.Repositories
 
         public List<int> GetUserMeasurementSessionData()
         {
-            var us = db.UserSessions.Find(ActiveDirectoryResource.GetUsername());
+            var us = db.UserSessions.Find(ActiveDirectoryResource.GetUsername().Substring(0,3));
             var idList = new List<int>();
             try
             {
@@ -1505,7 +1505,7 @@ namespace ProductivityAnalysisSystem.Models.Repositories
         {
             var mde = new MonthlyEntriesAudit
             {
-                ChangedBy_NM = username,
+                ChangedBy_NM = username.Substring(0,3),
                 OldValue_AMT = oldValue,
                 NewValue_AMT = newValue,
                 Reason_TXT = reason,

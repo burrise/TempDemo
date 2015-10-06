@@ -72,7 +72,7 @@ namespace ProductivityAnalysisSystem
             var username = (HttpContext.Current.Request.LogonUserIdentity != null)
                 ? HttpContext.Current.Request.LogonUserIdentity.Name
                 : "";
-            return username.Substring(0,20);
+            return username.Substring(0,3);
         }
 
         public static string GetFirstName()
